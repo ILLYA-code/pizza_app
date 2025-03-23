@@ -8,7 +8,7 @@ const client = new Client({
 });
 
 client.connect()
-  .then(() => console.log("🟢 PostgreSQL підключено"))
-  .catch(err => console.error("🔴 Помилка підключення до БД", err));
+  .then(() => console.log("PostgreSQL підключено"))
+  .catch(err => console.error("Помилка підключення до БД", err));
 
 export default client;
