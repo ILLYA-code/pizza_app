@@ -3,7 +3,7 @@ import cors from "cors";
 import client from "./db";
 import cookieParser from "cookie-parser";
 import authRoutes from "./auth/authRoutes";
-import { verifyToken } from "./auth/authMiddleware";
+// import { verifyToken } from "./auth/authMiddleware";
 
 const app = express();
 app.use(express.json());
