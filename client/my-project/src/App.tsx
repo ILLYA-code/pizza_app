@@ -15,9 +15,9 @@ function App() {
           </div>
         }/>
         <Route path='/profile' element={
-          <div className="w-screen h-screen flex justify-center items-center bg-blue-500">
+          // <div className="w-screen h-screen flex justify-center items-center bg-blue-500">
             <Profile />
-          </div>
+          // </div>
         } />
       </Routes>
     </Router>

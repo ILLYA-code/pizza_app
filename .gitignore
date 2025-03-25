@@ -1,8 +1,8 @@
 # Node modules
 /node_modules/
 
-# .env files
-/.env
+# .env files (включаючи вкладені папки)
+**/*.env
 
 # TypeScript output
 /dist/
