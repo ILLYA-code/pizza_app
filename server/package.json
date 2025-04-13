@@ -14,12 +14,14 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@types/nodemailer": "^6.4.17",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.10.1",
     "pg": "^8.14.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"

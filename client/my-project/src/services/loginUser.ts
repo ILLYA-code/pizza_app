@@ -10,12 +10,18 @@ export default async function loginUser (email: string, password: string) {
         });
     
         if (response.ok) {
-            console.log("Logged in successfully");
+            // console.log("Logged in successfully");
+            return { success: true };
         } else {
             const data = await response.json();
-            console.error(data.error);
+            // console.error(data.error);
+            return { success: false, error: data.error };
         }
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (error: unknown) {
+        //   console.error("Error:", error);
+        if (error instanceof Error) {
+            return { success: false, error: error.message };
+        }
+        return { success: false, error: "An unknown error occurred" };
     }
 };
