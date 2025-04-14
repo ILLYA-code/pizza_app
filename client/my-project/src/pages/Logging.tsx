@@ -2,20 +2,18 @@ import { useEffect, useState } from "react";
 import NameForm from "../components/logging/NameForm";
 import HaveAccSwitch from "../components/logging/HaveAccSwitch";
 import EmailForm from "../components/logging/EmailForm";
+import CodeForm from "../components/logging/CodeForm";
+import verifyCodeByEmail from "../services/verifyCodeByEmail";
 
-export type Step = "name" | "email" | "password" | "final";
+export type Step = "name" | "email" | "code" | "password" | "final";
+export type VerifyingCodePossibleResults = "empty" | "invalidCode" | "serverError";
 
 export default function Logging () {
     const [userData, setUserData] = useState({name: "", email: "", password: ""});
     const [haveAcc, setHaveAcc] = useState(false);
     const [currentStep, setCurrentStep] = useState<Step>("name");
     const [successStep, setSuccessStep] = useState(false);
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setSuccessStep(!successStep);
-    //     }, 1000);
-    // }, [successStep]);
+    const [verifyingCodeResult, setVerifyingCodeResult] = useState<VerifyingCodePossibleResults>("empty");
 
     function handleNextStep (next: Step) {
         setCurrentStep(next);
@@ -27,6 +25,25 @@ export default function Logging () {
 
     function writeName (name: string) {
         setUserData({...userData, name: name});
+    }
+
+    function writeEmail (email: string) {
+        setUserData({...userData, email: email});
+    }
+
+    function verifyCode(code: string) {
+        verifyCodeByEmail(userData.email, code).then((data) => {
+            if (!data) {
+                setVerifyingCodeResult("serverError");
+            } else if (data.valid === false) {
+                setVerifyingCodeResult("invalidCode");
+            } else if (data.valid) {
+                setVerifyingCodeResult("empty");
+            } else {
+                setVerifyingCodeResult("serverError");
+            }
+            console.log(data);
+        })
     }
 
     useEffect(() => {
@@ -45,7 +62,10 @@ export default function Logging () {
                         <NameForm writeName={writeName} next={handleNextStep} />
                     ) }
                     { currentStep === "email" && (
-                        <EmailForm />
+                        <EmailForm writeEmail={writeEmail} next={handleNextStep} />
+                    )}
+                    { currentStep === "code" && (
+                        <CodeForm verifyCode={verifyCode} email={userData.email} verifyingCodeResult={verifyingCodeResult} />
                     )}
                 </form>
                 <HaveAccSwitch haveAcc={haveAcc} toggleHaveAcc={() => setHaveAcc(!haveAcc)} />

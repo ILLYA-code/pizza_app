@@ -30,7 +30,7 @@ export async function sendCode(req: Request, res: Response) {
         return;
     }
 
-    const code = Math.floor(Math.random() * 100000).toString();
+    const code = Math.floor(10000 + Math.random() * 90000).toString();
     try {
         console.log("trying: email: ", email, "code: ", code);
         await trySend(email, code);

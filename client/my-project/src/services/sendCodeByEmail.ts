@@ -8,14 +8,17 @@ export default async function sendCodeByEmail(email: string) {
             body: JSON.stringify({email}),
         });
 
-        const data = res.json();
+        const data = await res.json();
 
         if(res.ok) {
             console.log('response ok - ', data);
+            return data;
         } else {
             console.log("failed to fetch", data);
+            return data;
         }
     } catch (err) {
         console.error("error while catching", err);
+        return false;
     }
 }
